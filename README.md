@@ -1,6 +1,6 @@
 # SHOP.CO by MN
 
-✨ **SHOP.CO by MN** is a fully functional, **innovative e-commerce platform** dedicated to offering trendy clothing for fashion enthusiasts. This project highlights a sleek, modern interface packed with essential features like **dynamic product pages**, **shopping cart integration**, and more. It is a perfect blend of **React**, **Next.js**, and **JavaScript**, showcasing my passion for creating **interactive and responsive** web experiences. 💻👚
+✨ **SHOP.CO by MN** is a fully functional, **innovative e-commerce platform** dedicated to offering trendy clothing for fashion enthusiasts. This project highlights a sleek, modern interface packed with essential features like **dynamic product pages**, **shopping cart integration**, and more. It is a perfect blend of **React**, **Next.js**, and **TypeScript**, showcasing my passion for creating **interactive and responsive** web experiences. 💻👚
 
 ## Features 🚀
 
