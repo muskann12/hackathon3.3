@@ -1,5 +1,6 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -18,8 +19,9 @@ const Index = () => {
   const [cart, setCart] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [promoCode, setPromoCode] = useState("");
-  const [discount, setDiscount] = useState(0); //this isn Discount state
-  const [isPromoApplied, setIsPromoApplied] = useState(false); // State for promo application
+  const [discount, setDiscount] = useState(0);
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const router = useRouter(); // Router hook
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
@@ -71,23 +73,27 @@ const Index = () => {
 
   const calculateTotal = () => {
     const subtotal = calculateSubtotal();
-    const shippingFee = subtotal > 200 ? 0 : 15; // Updated shipping fee 
-    const total = subtotal + shippingFee - discount; // Appling  discount
-    return total < 0 ? 0 : total; // Ensure total is not negative
+    const shippingFee = subtotal > 200 ? 0 : 15;
+    const total = subtotal + shippingFee - discount;
+    return total < 0 ? 0 : total;
   };
 
   const applyPromoCode = () => {
     const subtotal = calculateSubtotal();
-    if (promoCode === "MUSKAN") { // promo code "MUSKAN"
-      const discountAmount = subtotal * 0.1; // Calculate 10% discount
+    if (promoCode === "MUSKAN") {
+      const discountAmount = subtotal * 0.1;
       setDiscount(discountAmount);
-      setIsPromoApplied(true); // Mark promo as applied
+      setIsPromoApplied(true);
       toast.success("Promo code applied! 10% discount granted.");
     } else {
-      setDiscount(0); // Reset discount if code is invalid
-      setIsPromoApplied(false); // Reset promo applied state
+      setDiscount(0);
+      setIsPromoApplied(false);
       toast.error("Invalid promo code.");
     }
+  };
+
+  const proceedToCheckout = () => {
+    router.push("/checkout"); // Redirect to the checkout page
   };
 
   return (
@@ -181,7 +187,7 @@ const Index = () => {
 
                 <div className="flex justify-between text-neutral-600">
                   <span>Shipping</span>
-                  <span>{calculateSubtotal() > 200 ? 'Free' : '$15.00'}</span>
+                  <span>{calculateSubtotal() > 200 ? "Free" : "$15.00"}</span>
                 </div>
 
                 <div className="flex justify-between text-red-600">
@@ -206,13 +212,16 @@ const Index = () => {
                   />
                   <button
                     onClick={applyPromoCode}
-                    className={`w-full py-2 rounded-md mt-2 transition-colors duration-300 ${isPromoApplied ? 'bg-green-600' : 'bg-gray-600'} text-white`}
+                    className={`w-full py-2 rounded-md mt-2 transition-colors duration-300 ${isPromoApplied ? "bg-green-600" : "bg-gray-600"} text-white`}
                   >
-                    {isPromoApplied ? 'Applied' : 'Apply'}
+                    {isPromoApplied ? "Applied" : "Apply"}
                   </button>
                 </div>
 
-                <button className="w-full bg-black text-white py-4 rounded-full hover:bg-neutral-800 transition-colors duration-300 mt-6">
+                <button
+                  onClick={proceedToCheckout} // Call the function on click
+                  className="w-full bg-black text-white py-4 rounded-full hover:bg-neutral-800 transition-colors duration-300 mt-6"
+                >
                   Proceed to Checkout
                 </button>
 
